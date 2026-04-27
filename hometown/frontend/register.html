@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #00f2fe, #764ba2);
+    }
+
+    /* Navbar */
+    .nav {
+      background: rgba(0,0,0,0.6);
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav a:hover {
+      color: #00d4ff;
+    }
+
+    /* Center */
+    .container-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Card */
+    .container {
+      width: 350px;
+      padding: 30px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      color: white;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Inputs */
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 40px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .input-group span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Button */
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #00d4ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00a8cc;
+      transform: scale(1.03);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="nav">
+  <a href="/dashboard.html">Dashboard</a>
+  <a href="/community.html">Community</a>
+  <a href="/posts.html">Posts</a>
+  <a href="/events.html">Events</a>
+  <a href="/notifications.html">Notifications</a>
+</div>
+
+<!-- Register Card -->
+<div class="container-wrapper">
+  <div class="container">
+    <h2>Create Account 🚀</h2>
+
+    <div class="input-group">
+      <span>👤</span>
+      <input type="text" id="name" placeholder="Full Name" required>
+    </div>
+
+    <div class="input-group">
+      <span>📧</span>
+      <input type="email" id="email" placeholder="Email" required>
+    </div>
+
+    <div class="input-group">
+      <span>🔒</span>
+      <input type="password" id="password" placeholder="Password" required>
+    </div>
+
+    <div class="input-group">
+      <span>🏙️</span>
+      <input type="text" id="hometown" placeholder="City">
+    </div>
+
+    <button onclick="registerUser()">Register</button>
+
+    <div class="footer">
+      Already have an account? <a href="login.html">Login</a>
+    </div>
+  </div>
+</div>
+
+<script>
+async function registerUser() {
+
+  try {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const hometown = document.getElementById("hometown").value.trim();
+
+    if (!name || !email || !password) {
+      alert("All fields are required");
+      return;
+    }
+
+    const res = await fetch("https://hometown-hub-bswj.onrender.com/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        city: hometown
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Registration failed ❌");
+      return;
+    }
+
+    alert("✅ Registration successful");
+    window.location.href = "login.html";
+
+  } catch (error) {
+    alert("❌ Server error");
+  }
+}
+</script>
+
+</body>
+</html>

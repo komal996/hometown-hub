@@ -1,0 +1,14 @@
+{
+  "name": "hometown",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "frontend": "live-server frontend --port=3000",
+    "backend": "nodemon backend/server.js",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "dependencies": {
+    "concurrently": "^8.0.0",
+    "live-server": "^1.2.2"
+  }
+}

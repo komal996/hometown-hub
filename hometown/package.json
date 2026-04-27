@@ -1,0 +1,22 @@
+{
+  "name": "hometown",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "frontend": "live-server frontend --port=3000",
+    "backend": "nodemon backend/server.js",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "live-server": "^1.2.2",
+    "mongoose": "^9.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
